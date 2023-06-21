@@ -8,10 +8,12 @@ import { useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { CreateSubredditPayload } from "@/lib/validators/subreddit";
 import { toast } from "@/hooks/use-toast";
+import { useCustomToast } from "@/hooks/use-custom-toast";
 
 const Page = () => {
   const router = useRouter();
   const [input, setInput] = useState<string>("");
+  const { loginToast } = useCustomToast();
 
   const { mutate: createCommunity, isLoading } = useMutation({
     mutationFn: async () => {
@@ -38,10 +40,7 @@ const Page = () => {
           });
         }
         if (err.response?.status === 401) {
-          return toast({
-            title: "You must be signed in to create a community",
-            variant: "destructive",
-          });
+          return loginToast();
         }
       }
     },
