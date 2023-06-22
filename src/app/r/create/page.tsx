@@ -49,6 +49,9 @@ const Page = () => {
         variant: "destructive",
       });
     },
+    onSuccess: (data) => {
+      router.push(`/r/${data}`);
+    },
   });
   return (
     <div className="container flex items-center h-full max-w-3xl mx-auto">
