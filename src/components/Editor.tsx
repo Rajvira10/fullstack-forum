@@ -1,11 +1,13 @@
 "use client";
 
+import type EditorJS from "@editorjs/editorjs";
+
 import { FC, useCallback, useEffect, useRef, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { useForm } from "react-hook-form";
 import { PostCreationRequest, PostValidator } from "@/lib/validators/post";
 import { zodResolver } from "@hookform/resolvers/zod";
-import type EditorJS from "@editorjs/editorjs";
+
 import { uploadFiles } from "@/lib/uploadthing";
 import { toast } from "@/hooks/use-toast";
 import { useMutation } from "@tanstack/react-query";
@@ -91,6 +93,18 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
   }, []);
 
   useEffect(() => {
+    if (Object.keys(errors).length) {
+      for (const [_key, value] of Object.entries(errors)) {
+        toast({
+          title: "Something went wrong",
+          description: (value as { message: string }).message,
+          variant: "destructive",
+        });
+      }
+    }
+  }, [errors]);
+
+  useEffect(() => {
     if (typeof window !== "undefined") {
       setIsMounted(true);
     }
@@ -113,18 +127,6 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
       };
     }
   }, [isMounted, initializeEditor]);
-
-  useEffect(() => {
-    if (Object.keys(errors).length) {
-      for (const [_key, value] of Object.entries(errors)) {
-        toast({
-          title: "Something went wrong",
-          description: (value as { message: string }).message,
-          variant: "destructive",
-        });
-      }
-    }
-  }, [errors]);
 
   const { mutate: createPost } = useMutation({
     mutationFn: async ({
@@ -181,12 +183,11 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
       <form
         id="community-post-form"
         className="w-fit"
-        onSubmit={() => {
-          handleSubmit(onSubmit);
-        }}
+        onSubmit={handleSubmit(onSubmit)}
       >
         <div className="prose prose-stone dark:prose-invert">
           <TextareaAutosize
+            {...rest}
             ref={(e) => {
               titleRef(e);
               // @ts-ignore
