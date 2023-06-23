@@ -36,7 +36,7 @@ export async function PATCH(req: Request) {
     });
 
     if (!post) {
-      return new Response("Post not found", { status: 404 });
+      return new Response("No post found", { status: 404 });
     }
 
     if (existingVote) {
