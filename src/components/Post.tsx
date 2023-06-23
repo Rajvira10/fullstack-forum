@@ -3,6 +3,7 @@ import { Post, User, Vote } from "@prisma/client";
 import { MessageSquare } from "lucide-react";
 import Link from "next/link";
 import { FC, useRef } from "react";
+import EditorOutput from "./EditorOutput";
 
 interface PostProps {
   subredditName: string;
@@ -47,8 +48,9 @@ const Post: FC<PostProps> = ({ subredditName, post, commentAmt }) => {
             className="relative text-sm max-h-40 w-full overflow-clip"
             ref={pRef}
           >
+            <EditorOutput content={post.content} />
             {pRef.current?.clientHeight === 160 ? (
-              <div className="absolute bottom-0 left-0 h-24 w-full bg-gradient-to-t from white to-transparent" />
+              <div className="absolute bottom-0 left-0 h-24 w-full bg-gradient-to-t from-white to-transparent" />
             ) : null}
           </div>
         </div>
