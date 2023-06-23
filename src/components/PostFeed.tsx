@@ -23,25 +23,25 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts, subredditName }) => {
 
   const { data: session } = useSession();
 
-  //   const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
-  //     ["infinite-query"],
-  //     async ({ pageParam = 1 }) => {
-  //       const query =
-  //         `/api/posts?limit=${INFINITE_SCROLLING_PAGINATION_RESULTS}&page=${pageParam}` +
-  //         (!!subredditName ? `&subredditName=${subredditName}` : "");
+  const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
+    ["infinite-query"],
+    async ({ pageParam = 1 }) => {
+      const query =
+        `/api/posts?limit=${INFINITE_SCROLLING_PAGINATION_RESULTS}&page=${pageParam}` +
+        (!!subredditName ? `&subredditName=${subredditName}` : "");
 
-  //       const { data } = await axios.get(query);
-  //       return data as ExtendedPost[];
-  //     },
-  //     {
-  //       getNextPageParam: (_, pages) => {
-  //         return pages.length + 1;
-  //       },
-  //       initialData: { pages: [initialPosts], pageParams: [1] },
-  //     }
-  //   );
+      const { data } = await axios.get(query);
+      return data as ExtendedPost[];
+    },
+    {
+      getNextPageParam: (_, pages) => {
+        return pages.length + 1;
+      },
+      initialData: { pages: [initialPosts], pageParams: [1] },
+    }
+  );
 
-  const posts = initialPosts;
+  const posts = data?.pages.flatMap((page) => page) ?? initialPosts;
   return (
     <ul className="flex flex-col col-span-2 space-y-6">
       {posts.map((post, index) => {
