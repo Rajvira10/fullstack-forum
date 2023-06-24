@@ -1,5 +1,6 @@
 import CommentsSections from "@/components/CommentsSections";
 import EditorOutput from "@/components/EditorOutput";
+import UserAvatar from "@/components/UserAvatar";
 import PostVoteServer from "@/components/post-vote/PostVoteServer";
 import { buttonVariants } from "@/components/ui/Button";
 import { db } from "@/lib/db";
@@ -61,10 +62,23 @@ const page = async ({ params }: PageProps) => {
           />
         </Suspense>
         <div className="sm:w-0 w-full flex-1 bg-white p-4 rounded-sm">
-          <p className="max-h-40 mt-1 truncate text-xs text-gray-500">
-            Posted by u/{post?.author.username ?? cachedPost.authorUsername}{" "}
-            {formatTimeToNow(new Date(post?.createdAt ?? cachedPost.createdAt))}
-          </p>
+          <div className="flex items-center gap-2">
+            {" "}
+            <UserAvatar
+              className="h-6 w-6"
+              user={{
+                name: post?.author.username || null,
+                image: post?.author.image || null,
+              }}
+            />
+            <p className="max-h-40 mt-1 truncate text-xs text-gray-500">
+              Posted by u/{post?.author.username ?? cachedPost.authorUsername}{" "}
+              {formatTimeToNow(
+                new Date(post?.createdAt ?? cachedPost.createdAt)
+              )}
+            </p>
+          </div>
+
           <h1 className="text-xl font-semibold py-2 leading-6 text-gray-600">
             {post?.title ?? cachedPost.title}
           </h1>

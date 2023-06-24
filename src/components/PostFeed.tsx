@@ -76,10 +76,7 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts, subredditName }) => {
                 post={post}
                 commentAmt={post.comments.length}
               />
-              <Button
-                className="text-center"
-                isLoading={isFetchingNextPage}
-              ></Button>
+              <Button variant={"ghost"} isLoading={isFetchingNextPage}></Button>
             </li>
           );
         } else {
