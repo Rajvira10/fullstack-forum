@@ -22,8 +22,13 @@ const Navbar = async () => {
         {session?.user ? (
           <UserAccountNav user={session.user} />
         ) : (
-          <Link href="/sign-in" className={buttonVariants()}>
-            Sign In
+          <Link
+            href="/sign-in"
+            className={buttonVariants({
+              className: "text-xs font-light",
+            })}
+          >
+            SignIn
           </Link>
         )}
       </div>
