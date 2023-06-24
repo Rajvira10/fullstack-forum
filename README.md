@@ -1,6 +1,8 @@
 # StudyHUB
 A Reddit clone where students can ask questions in the relevant communities, comment and vote.
 
+https://studyhub-rajvira.vercel.app/
+
 ## Features
 1. Auth
 2. Creating and Joining Communities
