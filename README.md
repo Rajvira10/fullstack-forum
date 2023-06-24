@@ -18,8 +18,9 @@ https://studyhub-rajvira.vercel.app/
 ## Technologies:
 
 1. NextJS 13
-2. MySql
-3. Prisma
-4. Tailwind
-5. NextAuth
-6. Redis
+2. TypeScript
+3. MySql
+4. Prisma
+5. Tailwind
+6. NextAuth
+7. Redis
