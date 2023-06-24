@@ -25,7 +25,7 @@ const Navbar = async () => {
           <Link
             href="/sign-in"
             className={buttonVariants({
-              className: "text-xs font-light",
+              className: "text-xs font-medium",
             })}
           >
             SignIn
