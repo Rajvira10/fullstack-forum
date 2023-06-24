@@ -29,6 +29,7 @@ const CommentsSections = async ({ postId }: CommentsSectionsProps) => {
   return (
     <div className="flex flex-col gap-y-4 mt-4">
       <hr className="w-full h-px my-6" />
+      <CreateComment />
 
       <div className="flex flex-col gap-y-6 mt-4">
         {comments
